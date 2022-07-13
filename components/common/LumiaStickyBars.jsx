@@ -7,10 +7,8 @@ function LumiaStickyBars({ children }) {
     <>
       <LumiaAppBar />
       <LumiaBottomNav
-        children={
-         children
-        }
-      />
+    
+      >  {children}</LumiaBottomNav>
     </>
   );
 }
