@@ -1,0 +1,7 @@
+.centered_container{
+    height: 100vh;
+    display: grid;
+    width: calc(100vw - (100vw - 100%));
+    align-content: center;
+    justify-content: center;
+ }
