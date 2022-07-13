@@ -21,12 +21,10 @@ const Home: NextPage = () => {
     <div className={styles.home_container}>
        
       
-        <LumiaStickyBars children={
-            <> <Post className={`${styles.post_cards}  ${styles.first_post_card}`}/>
-            <Post className={styles.post_cards}/>
-            <Post className={styles.post_cards}/>
-            <Button  sx={{alignSelf:"center",margin:"auto",width:"100%"}} onClick={() => setCnt(cnt + 1)}>Load More</Button></>
-        } />
+        <LumiaStickyBars> <> <Post className={`${styles.post_cards}  ${styles.first_post_card}`}/>
+        <Post className={styles.post_cards}/>
+        <Post className={styles.post_cards}/>
+        <Button  sx={{alignSelf:"center",margin:"auto",width:"100%"}} onClick={() => setCnt(cnt + 1)}>Load More</Button></></LumiaStickyBars>
      
       </div>
    
