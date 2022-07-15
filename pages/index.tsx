@@ -99,7 +99,8 @@ function LoginPageColumn({}) {
           defaultValue={""}
           width={"80%"}
         />
-        <Box height={10}/>
+       
+        <Box className={styles.box} sx={{height:"15px"}}/>
         <LumiaTextField
           className={styles.email_textfield}
           label={"password"}

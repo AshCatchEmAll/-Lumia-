@@ -174,29 +174,35 @@
   order: 2;
   margin-bottom:10px;
 }
-
+.box{
+  order: 2;
+  height:10px;
+}
 .password_textfield {
-  order: 3;
+  order: 4;
 }
-.login_button {
-  order: 5;
-  margin: 0px;
-}
-
 .forgot_password {
   width: 80%;
-  order: 3;
+  order: 5;
   color: #222845;
   text-align: end;
   height: fit-content;
   margin-top:0px;
 }
 
+.login_button {
+  order: 7;
+  margin: 0px;
+}
+
+
+
+
 .sign_up_text {
   align-self: center;
   color: #222845;
   text-align: center;
   height: fit-content;
-  order: 6;
+  order: 7;
  
 }
