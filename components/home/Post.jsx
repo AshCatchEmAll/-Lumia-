@@ -28,7 +28,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function Post({className}) {
+export default function Post({className,onClick=()=>{}}) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -36,7 +36,7 @@ export default function Post({className}) {
   };
 
   return (
-    <Card className={className} sx={{ minWidth: 350 }}>
+    <Card onClick={onClick} className={className} sx={{ minWidth: 350 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">

@@ -9,18 +9,17 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 import Search from "@mui/icons-material/Search";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
+
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+
 import logo from "../../assets/logo.svg";
-import { useRouter } from "next/router";
+import { ArrowBackIos } from "@mui/icons-material";
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-const LumiaAppBar = () => {
-  const router = useRouter();
+const LumiaAppBarWithBackButton = ({onBackClick,showSearch=true}) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -28,8 +27,7 @@ const LumiaAppBar = () => {
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event) => {
-    router.push("/search")
-    // setAnchorElUser(event.currentTarget);
+    setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
@@ -49,6 +47,16 @@ const LumiaAppBar = () => {
               display: { xs: "none", md: "flex" },
               mr: 1,
             }}>
+                 <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={onBackClick}
+              color="inherit"
+            >
+              <ArrowBackIos />
+            </IconButton>
           <img
           style={{
             width: "35px",
@@ -82,10 +90,10 @@ const LumiaAppBar = () => {
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleOpenNavMenu}
+              onClick={onBackClick}
               color="inherit"
             >
-              <MenuIcon />
+              <ArrowBackIos />
             </IconButton>
             <Menu
               id="menu-appbar"
@@ -149,7 +157,7 @@ const LumiaAppBar = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }} >
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 ,  display:showSearch===true?"hidden":"inline-block"}}>
                 <Search sx={{color:"#FFFFFE"}} />
               </IconButton>
             </Tooltip>
@@ -181,4 +189,4 @@ const LumiaAppBar = () => {
     </AppBar>
   );
 };
-export default LumiaAppBar;
+export default LumiaAppBarWithBackButton;

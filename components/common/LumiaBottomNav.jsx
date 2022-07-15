@@ -1,32 +1,39 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import RestoreIcon from '@mui/icons-material/Restore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ArchiveIcon from '@mui/icons-material/Archive';
-import Paper from '@mui/material/Paper';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
-import Avatar from '@mui/material/Avatar';
-import { AddCircle, Home, QuestionAnswer,NotificationsActive, AccountCircle } from '@mui/icons-material';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+import BottomNavigation from "@mui/material/BottomNavigation";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import RestoreIcon from "@mui/icons-material/Restore";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ArchiveIcon from "@mui/icons-material/Archive";
+import Paper from "@mui/material/Paper";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
+import Avatar from "@mui/material/Avatar";
+import {
+  AddCircle,
+  Home,
+  QuestionAnswer,
+  NotificationsActive,
+  AccountCircle,
+} from "@mui/icons-material";
+import { useRouter } from "next/router";
 
 function refreshMessages() {
   const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
 
   return Array.from(new Array(50)).map(
-    () => messageExamples[getRandomInt(messageExamples.length)],
+    () => messageExamples[getRandomInt(messageExamples.length)]
   );
 }
 
-export default function LumiaBottomNav({children}) {
-  const [value, setValue] = React.useState(0);
+export default function LumiaBottomNav({ children, item = 0 }) {
+  const [value, setValue] = React.useState(item);
   const ref = React.useRef(null);
   const [messages, setMessages] = React.useState(() => refreshMessages());
-
+  const router = useRouter();
   React.useEffect(() => {
     ref.current.ownerDocument.body.scrollTop = 0;
     setMessages(refreshMessages());
@@ -46,34 +53,75 @@ export default function LumiaBottomNav({children}) {
         ))}
       </List> */}
       {children}
-      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+      <Paper
+        sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
+        elevation={3}
+      >
         <BottomNavigation
           showLabels
           value={value}
           sx={{
-            backgroundColor: '#222845',
+            backgroundColor: "#222845",
             "& .Mui-selected, .Mui-selected > svg": {
               color: "#FF748A",
-
             },
-            "& .Mui-selected, .Mui-selected > .MuiBottomNavigationAction-label": {
-              color: "#FF748A",
-                
-            },
+            "& .Mui-selected, .Mui-selected > .MuiBottomNavigationAction-label":
+              {
+                color: "#FF748A",
+              },
             "& .MuiBottomNavigationAction-root, .Mui-selected, svg": {
-              color: "#EEBBC3"
-            }
-        }}
-        
+              color: "#EEBBC3",
+            },
+          }}
           onChange={(event, newValue) => {
             setValue(newValue);
           }}
         >
-          <BottomNavigationAction label="Home" icon={<Home sx={{color:"#222845"}} />} />
-          <BottomNavigationAction label="Questions" icon={<QuestionAnswer sx={{color:"#222845"}}/>} />
-          <BottomNavigationAction label="Add" icon={<AddCircle sx={{color:"#222845"}}/>} />
-          <BottomNavigationAction label="Notification" icon={<NotificationsActive sx={{color:"#222845"}}/>} />
-          <BottomNavigationAction label="Account" icon={<AccountCircle sx={{color:"#222845"}}/>} />
+          <BottomNavigationAction
+            label="Home"
+            onClick={
+              () => {
+                router.push("/home");
+              }
+            }
+            icon={<Home sx={{ color: "#222845" }} />}
+          />
+          <BottomNavigationAction
+            label="Questions"
+            onClick={
+              () => {
+                router.push("/questions");
+              }
+            }
+            icon={<QuestionAnswer sx={{ color: "#222845" }} />}
+          />
+          <BottomNavigationAction
+            label="Add"
+            onClick={
+              () => {
+                router.push("/addquestion");
+              }
+            }
+            icon={<AddCircle sx={{ color: "#222845" }} />}
+          />
+          <BottomNavigationAction
+            label="Notification"
+            onClick={
+              () => {
+                router.push("/notifications");
+              }
+            }
+            icon={<NotificationsActive sx={{ color: "#222845" }} />}
+          />
+          <BottomNavigationAction
+            label="Account"
+            onClick={
+              () => {
+                router.push("/account");
+              }
+            }
+            icon={<AccountCircle sx={{ color: "#222845" }} />}
+          />
         </BottomNavigation>
       </Paper>
     </Box>
@@ -82,42 +130,45 @@ export default function LumiaBottomNav({children}) {
 
 const messageExamples = [
   {
-    primary: 'Brunch this week?',
-    secondary: "I'll be in the neighbourhood this week. Let's grab a bite to eat",
-    person: '/static/images/avatar/5.jpg',
+    primary: "Brunch this week?",
+    secondary:
+      "I'll be in the neighbourhood this week. Let's grab a bite to eat",
+    person: "/static/images/avatar/5.jpg",
   },
   {
-    primary: 'Birthday Gift',
+    primary: "Birthday Gift",
     secondary: `Do you have a suggestion for a good present for John on his work
       anniversary. I am really confused & would love your thoughts on it.`,
-    person: '/static/images/avatar/1.jpg',
+    person: "/static/images/avatar/1.jpg",
   },
   {
-    primary: 'Recipe to try',
-    secondary: 'I am try out this new BBQ recipe, I think this might be amazing',
-    person: '/static/images/avatar/2.jpg',
+    primary: "Recipe to try",
+    secondary:
+      "I am try out this new BBQ recipe, I think this might be amazing",
+    person: "/static/images/avatar/2.jpg",
   },
   {
-    primary: 'Yes!',
-    secondary: 'I have the tickets to the ReactConf for this year.',
-    person: '/static/images/avatar/3.jpg',
+    primary: "Yes!",
+    secondary: "I have the tickets to the ReactConf for this year.",
+    person: "/static/images/avatar/3.jpg",
   },
   {
     primary: "Doctor's Appointment",
-    secondary: 'My appointment for the doctor was rescheduled for next Saturday.',
-    person: '/static/images/avatar/4.jpg',
+    secondary:
+      "My appointment for the doctor was rescheduled for next Saturday.",
+    person: "/static/images/avatar/4.jpg",
   },
   {
-    primary: 'Discussion',
+    primary: "Discussion",
     secondary: `Menus that are generated by the bottom app bar (such as a bottom
       navigation drawer or overflow menu) open as bottom sheets at a higher elevation
       than the bar.`,
-    person: '/static/images/avatar/5.jpg',
+    person: "/static/images/avatar/5.jpg",
   },
   {
-    primary: 'Summer BBQ',
+    primary: "Summer BBQ",
     secondary: `Who wants to have a cookout this weekend? I just got some furniture
       for my backyard and would love to fire up the grill.`,
-    person: '/static/images/avatar/1.jpg',
+    person: "/static/images/avatar/1.jpg",
   },
 ];
