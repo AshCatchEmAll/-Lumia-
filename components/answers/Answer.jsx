@@ -23,8 +23,8 @@ import { addCommentActionString } from "../../redux/slices/dynamicCommentReducer
 import { VoteType } from "@prisma/client";
 import { getCurrentUserUID } from "../auth/firebaseHelpers";
 import { useAuth } from "../auth/AuthProvider";
-import {  useMutation } from '@apollo/client';
-import {publishUnreadMutation} from "../../pages/questions/graphqlHelpers";
+import {  useMutation ,gql} from '@apollo/client';
+
 
 export function Answer({ answer, variant = rootVariant }) {
   const thisAnswer = useSelector(
@@ -209,7 +209,12 @@ function ThumbDownComponent({ answer ,user}) {
 
 function ThumbUpComponent({ answer,user }) {
   
-  const [publishUnread, { data, loading, error }] = useMutation(publishUnreadMutation());
+  const [publishUnread, { data, loading, error }] = useMutation(gql`
+  # Increments a back-end counter and gets its resulting value
+  mutation updateUnread($uid: String!, $unread: Int!) {
+    publishUnread(uid: $uid, unread: $unread) 
+  }
+`);
 
   const likes = useSelector(
     (state) => state.dynamicCommentReducer[answer.id].likes

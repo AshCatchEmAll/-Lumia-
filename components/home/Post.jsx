@@ -21,8 +21,8 @@ import { getCurrentUserUID } from "../auth/firebaseHelpers";
 import { VoteType } from "@prisma/client";
 import { addQuestionActionString } from "../../redux/slices/dynamicQuestionReducer";
 import { useAuth } from "../auth/AuthProvider";
-import {  useMutation } from '@apollo/client';
-import {publishUnreadMutation} from "../../pages/questions/graphqlHelpers";
+import {  useMutation ,gql} from '@apollo/client';
+
 export default function Post({
   className,
   question = {},
@@ -109,7 +109,12 @@ export default function Post({
 
 function QuestionLikes({ question, user }) {
 
-  const [publishUnread, { data, loading, error }] = useMutation(publishUnreadMutation());
+  const [publishUnread, { data, loading, error }] = useMutation(gql`
+  # Increments a back-end counter and gets its resulting value
+  mutation updateUnread($uid: String!, $unread: Int!) {
+    publishUnread(uid: $uid, unread: $unread) 
+  }
+`);
   const likes = useSelector(
     (state) => state.dynamicQuestionReducer[question.id].likes
   );
