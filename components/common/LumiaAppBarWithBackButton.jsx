@@ -16,7 +16,7 @@ import MenuItem from "@mui/material/MenuItem";
 
 import logo from "../../assets/logo.svg";
 import { ArrowBackIos } from "@mui/icons-material";
-const pages = ["Products", "Pricing", "Blog"];
+const pages = [];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const LumiaAppBarWithBackButton = ({onBackClick,showSearch=true}) => {

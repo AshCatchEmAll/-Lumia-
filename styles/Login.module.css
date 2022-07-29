@@ -12,21 +12,9 @@
   align-items: center;
 }
 
-.footer {
-  display: flex;
-  flex: 1;
-  padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
-  justify-content: center;
-  align-items: center;
-}
 
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-}
+
+
 
 .title a {
   color: #0070f3;
@@ -205,4 +193,13 @@
   height: fit-content;
   order: 7;
  
+}
+
+
+.footer {
+  font-weight: 500;
+  justify-content: center;
+  align-items: center;
+  order: 10;
+  align-self:ce;
 }

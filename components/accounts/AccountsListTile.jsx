@@ -9,7 +9,10 @@ import Divider from "@mui/material/Divider";
 import InboxIcon from "@mui/icons-material/Inbox";
 import DraftsIcon from "@mui/icons-material/Drafts";
 import { useRouter } from "next/router";
-import { BookmarksRounded } from "@mui/icons-material";
+import { BookmarksRounded, Logout } from "@mui/icons-material";
+import { getAuth } from "firebase/auth";
+import app from "../../config/initAuth";
+import { signOut } from "../auth/firebaseHelpers";
 
 export default function AccountListTile() {
   const router = useRouter();
@@ -33,6 +36,7 @@ export default function AccountListTile() {
           <ListItem disablePadding>
             <ListItemButton
               onClick={() => {
+                
                 router.push("/drafts");
               }}
             >
@@ -40,6 +44,21 @@ export default function AccountListTile() {
                 <DraftsIcon />
               </ListItemIcon>
               <ListItemText primary="Drafts" />
+            </ListItemButton>
+          </ListItem>
+          <Divider />
+
+          <ListItem disablePadding>
+            <ListItemButton
+              onClick={async() => {
+                  await signOut()
+                  router.push("/")
+              }}
+            >
+              <ListItemIcon>
+                <Logout />
+              </ListItemIcon>
+              <ListItemText primary="Logout" />
             </ListItemButton>
           </ListItem>
         </List>

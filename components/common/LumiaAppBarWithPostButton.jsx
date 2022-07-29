@@ -16,13 +16,14 @@ import MenuItem from "@mui/material/MenuItem";
 
 import logo from "../../assets/logo.svg";
 import { ArrowBackIos, Cancel,  } from "@mui/icons-material";
+import { useRouter } from "next/router";
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const LumiaAppBarWithPostButton = ({onBackClick,onPostClick,postText="Post"}) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  const router = useRouter();
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -86,7 +87,10 @@ const LumiaAppBarWithPostButton = ({onBackClick,onPostClick,postText="Post"}) =>
           
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <Button variant="contained" sx={{backgroundColor:"#EEBBC3",color:"#222845 "}}>{postText}</Button>
+              <Button variant="contained" sx={{backgroundColor:"#EEBBC3",color:"#222845 "}} onClick={async()=>{
+                await onPostClick();
+                router.back();
+              }}>{postText}</Button>
             </Tooltip>
             
            

@@ -1,0 +1,24 @@
+.top_rounded_container{
+    border-radius: 90px 0 0 0;
+    /* height: auto; */
+    /* width: 100px; */
+    order: 3;
+    width: calc(100vw - (100vw - 100%));
+    flex: 3;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    background-color: #fffffe;
+    height:100vh;
+}
+.vertical_center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+

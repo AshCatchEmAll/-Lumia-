@@ -1,0 +1,169 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity", "fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model User {
+  id                Int                @id @default(autoincrement())
+  name              String
+  email             String
+  avatar            String?
+  uid               String             @unique
+  questions         Question[]
+  answerBookmarks   AnswerBookmark[]
+  questionBookmarks QuestionBookmark[]
+  questionDrafts    QuestionDraft[]
+  answerDrafts      AnswerDraft[]
+  answers           Answer[]
+  questionVotes     QuestionVotes[]
+  answerVotes       AnswerVotes[]
+  notifications     Notification[]
+  unreadNotifications Int @default(0)
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @default(now())
+}
+
+model Question {
+  id               Int                @id @default(autoincrement())
+  content          String             @db.VarChar(300)
+  userId           String
+  user             User               @relation(fields: [userId], references: [uid])
+  answers          Answer[]
+  draft            QuestionDraft?
+  isDraft          Boolean            @default(false)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @default(now())
+  likes            Int                @default(0)
+  dislikes         Int                @default(0)
+  votes            QuestionVotes[]
+  QuestionBookmark QuestionBookmark[]
+
+  @@index([userId])
+  @@fulltext([content])
+}
+
+model Answer {
+  id             Int              @id @default(autoincrement())
+  content        String           @db.Text
+  userId         String
+  user           User             @relation(fields: [userId], references: [uid])
+  questionId     Int
+  question       Question         @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  isRootAnswer   Boolean          @default(false)
+  parentAnswerId Int?
+  parentAnswer   Answer?          @relation("AnswerOwnerHistory", fields: [parentAnswerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  childAnswers   Answer[]         @relation(name: "AnswerOwnerHistory")
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @default(now())
+  isDraft        Boolean          @default(false)
+  draft          AnswerDraft?
+  likes          Int              @default(0)
+  dislikes       Int              @default(0)
+  votes          AnswerVotes[]
+  AnswerBookmark AnswerBookmark[]
+
+  @@index([questionId])
+}
+
+model AnswerBookmark {
+  id     Int    @id @default(autoincrement())
+  userId String
+  user   User   @relation(fields: [userId], references: [uid])
+
+  answerId  Int
+  answer    Answer   @relation(fields: [answerId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model QuestionBookmark {
+  id         Int      @id @default(autoincrement())
+  userId     String
+  user       User     @relation(fields: [userId], references: [uid])
+  questionId Int
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
+
+  @@index([userId])
+}
+
+model QuestionDraft {
+  id         Int      @id @default(autoincrement())
+  userId     String
+  user       User     @relation(fields: [userId], references: [uid])
+  questionId Int      @unique
+  question   Question @relation(fields: [questionId], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
+
+  @@index([userId])
+  @@index([questionId])
+}
+
+model AnswerDraft {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  user      User     @relation(fields: [userId], references: [uid])
+  answerId  Int      @unique
+  answer    Answer   @relation(fields: [answerId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([answerId])
+}
+
+enum NotificationType {
+  Question
+  Answer
+}
+
+model Notification {
+  id         Int              @id @default(autoincrement())
+  userId     String
+  user        User             @relation(fields: [userId], references: [uid])
+  questionId Int
+  title      String
+  content    String
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @default(now())
+  type       NotificationType
+
+  @@index([userId])
+  @@index([questionId])
+}
+
+enum VoteType {
+  LIKE
+  DISLIKE
+}
+
+model QuestionVotes {
+  id         Int      @id @default(autoincrement())
+  type       VoteType
+  userId     String
+  user       User     @relation(fields: [userId], references: [uid])
+  questionId Int
+  question   Question @relation(fields: [questionId], references: [id])
+}
+
+model AnswerVotes {
+  id       Int      @id @default(autoincrement())
+  type     VoteType
+  userId   String
+  user     User     @relation(fields: [userId], references: [uid])
+  answerId Int
+  answer   Answer   @relation(fields: [answerId], references: [id])
+}

@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
-import Page from "../../components/home/Page";
+
 import Post from "../../components/home/Post";
 import styles from "../../styles/Home.module.css";
 import LumiaStickyBars from "../../components/common/LumiaStickyBars";
@@ -8,22 +8,80 @@ import { Box, Button, TextField } from "@mui/material";
 import LumiaAppBarWithPostButton from "../../components/common/LumiaAppBarWithPostButton";
 import { useRouter } from "next/router";
 import LumiaAppBarWithBackButton from "../../components/common/LumiaAppBarWithBackButton";
+import Comments from "../../components/comments/Comment";
+import { Answer } from "@prisma/client";
+import { useSelector, useDispatch } from "react-redux";
+import { loadRootComments } from "../../redux/slices/commentSlice";
+import { Answer as AnswerComponent } from "../../components/answers/Answer";
+import AnswerList from "../../components/answers/AnswerList";
+import AnswerTextField from "../../components/answers/AnswerTextField";
+import { rootVariant } from "../../components/answers/variants";
+import { loadDynamicCommentsActionString } from "../../redux/slices/dynamicCommentReducer";
+import ProtectedComponent from "../../components/auth/ProtectedComponent";
+import {
+  getCurrentUserUID,
+  verifyToken,
+} from "../../components/auth/firebaseHelpers";
+import nookies from "nookies";
+import { addQuestionActionString } from "../../redux/slices/dynamicQuestionReducer";
+//@ts-ignore
+export async function getServerSideProps(context: any) {
+  const { query } = context;
+  const cookies = nookies.get(context);
+  const token = await verifyToken(cookies);
+  const url = new URL(
+    "/api/answer?questionId=" + query.questionId + "&userId=" + token.uid,
+    process.env.DEV_API_URL
+  );
 
-const SingleQuestionPage: NextPage = () => {
-  const [cnt, setCnt] = useState(2);
-  const router = useRouter();
-  const [value, setValue] = useState("");
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await response.json();
+  const questionurl = new URL(
+    "/api/question?id=" + query.questionId,
+    process.env.DEV_API_URL
+  );
+  const questionRes = await fetch(questionurl, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const question = await questionRes.json();
+  
+  console.log(question);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+  return {
+    props: {
+      answers: data["answers"],
+      question: question["question"],
+    },
   };
-  let pages: any = [];
+}
+
+const SingleQuestionPage: NextPage = (props: any) => {
+  const selectedQuestion = props.question;
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const questionId = router.query.questionId;
+
+  const [answers, setAnswers] = useState<Answer[]>(props.answers);
   useEffect(() => {
-    // for (let i = 0; i < cnt; i++) {
-    //   pages.push(<Page index={i} key={i} />);
-    // }
-    pages = Page();
+    if(selectedQuestion){
+      dispatch({
+        type: addQuestionActionString,
+        payload: selectedQuestion,
+      });
+    }
+    console.log("QuestionID : " + questionId);
+    dispatch(loadRootComments(props.answers));
+    dispatch({ type: loadDynamicCommentsActionString, payload: props.answers });
   }, []);
+
   return (
     <div className={styles.home_container}>
       <LumiaAppBarWithBackButton
@@ -31,23 +89,20 @@ const SingleQuestionPage: NextPage = () => {
         onBackClick={() => {
           router.back();
         }}
-        
       />
       <Box height={20} />
-      <TextField
-        id="outlined-multiline-flexible"
-        label="Ask a question"
-     
-        multiline
-        sx={{ width: "90%", height: "80vh" }}
-        maxRows={15}
-        rows={10}
-        value={value}
-
-        
-        onChange={handleChange}
+      <Post
+        className={styles.post_cards}
+        onClick={() => {}}
+        content={selectedQuestion.content}
+        question={selectedQuestion}
+        key={1}
       />
-     
+      <Box height={20} />
+      <hr style={{ width: "100vw" }} />
+      <Box height={20} />
+      <AnswerTextField variant={rootVariant} questionId={questionId} />
+      <AnswerList answers={answers} />
     </div>
   );
 };

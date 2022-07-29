@@ -8,18 +8,19 @@ const StyledTextField = styled(TextField)`
   }
 `
 
-function LumiaTextField({label,id,defaultValue,width="100%",className=""}){
+function LumiaTextField({label,id,hidden=false,controller,controllerFunction,width="100%",className=""}){
     return <TextField
     className={className}
     sx={{width:width,margin:"0 auto 0 auto",color:"#222845",input: {
-        color: "red",
+       
         background: "#D4D8F0"
       }}}
-    
+    value={controller}
+    onChange={(e)=>controllerFunction(e.target.value)}
     required
     id={id}
     label={label}
-    defaultValue={defaultValue}
+   hidden
   />
 }
 

@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/home/Post.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/home/Post.jsx", "components/common/Snackbar.jsx", "components/auth/ProtectedComponent.jsx", "pages/api/graphql/index.js"],
   "exclude": ["node_modules"]
 }

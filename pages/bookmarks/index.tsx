@@ -1,36 +1,70 @@
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
-import Page from "../../components/home/Page";
 import Post from "../../components/home/Post";
+import BookmarkCard from "../../components/bookmarks/BookmarkCard";
 import styles from "../../styles/Home.module.css";
 import LumiaStickyBars from "../../components/common/LumiaStickyBars";
 import { Button } from "@mui/material";
 import LumiaAppBarWithBackButton from "../../components/common/LumiaAppBarWithBackButton";
 import { useRouter } from "next/router";
+import {
+  
+  verifyToken,
+} from "../../components/auth/firebaseHelpers";
+import nookies from "nookies";
+import EmptyState from "../../components/common/EmptyState";
 
-const Bookmarks: NextPage = () => {
-  const [cnt, setCnt] = useState(2);
+export async function getServerSideProps(context: any) {
+  const cookies = nookies.get(context);
+  const token = await verifyToken(cookies);
+  
+  const url = new URL(
+    "/api/bookmarks?userId=" + token.uid ,
+    process.env.DEV_API_URL
+  );
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await response.json();
+  console.log(data);
+  
+    return {
+      props: {
+        bookmarks: data["bookmarks"],
+      },
+    };
+  
+
+}
+
+
+
+const Bookmarks: NextPage = ({bookmarks}:any) => {
+
   const router = useRouter();
-  let pages: any = [];
-  useEffect(() => {
-    // for (let i = 0; i < cnt; i++) {
-    //   pages.push(<Page index={i} key={i} />);
-    // }
-    pages = Page();
-  }, []);
+ 
   return (
     <div className={styles.home_container}>
         <LumiaAppBarWithBackButton onBackClick={()=>{
             router.back();
         }} />
-        <Post className={`${styles.post_cards}  ${styles.first_post_card}`} />
-        <Post className={styles.post_cards} />
-        <Button
-          sx={{ alignSelf: "center", margin: "auto", width: "100%" }}
-          onClick={() => setCnt(cnt + 1)}
-        >
-          Bookmarks
-        </Button>
+       
+       {
+        bookmarks.length>0? bookmarks.map((bookmark:any, index:number)=>{
+
+            return (
+                <div key={index}>
+                    <BookmarkCard bookmark={bookmark} className={styles.post_cards}/>
+                </div>
+            )
+        }
+        ) : <EmptyState text={"You've got no bookmarks"}/>
+       }
+        
 
        
        

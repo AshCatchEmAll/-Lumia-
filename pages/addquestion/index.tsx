@@ -7,45 +7,217 @@ import LumiaStickyBars from "../../components/common/LumiaStickyBars";
 import { Box, Button, TextField } from "@mui/material";
 import LumiaAppBarWithPostButton from "../../components/common/LumiaAppBarWithPostButton";
 import { useRouter } from "next/router";
+import SimpleSnackbar from "../../components/common/Snackbar";
+import { CheckBoxRounded } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getCurrentUserUID,
+  verifyToken,
+} from "../../components/auth/firebaseHelpers";
+import { useAuth } from "../../components/auth/AuthProvider";
+import ConfirmDialog from "../../components/common/ConfirmDialog";
+import DraftCard from "../../components/drafts/DraftCard";
+import {
+  errorSnackbar,
+  showSnackbar,
+  successSnackbar,
+} from "../../redux/slices/snackbarSlice";
 
 const AddQuestionPage: NextPage = () => {
-  const [cnt, setCnt] = useState(2);
   const router = useRouter();
-  const [value, setValue] = useState("");
+  const paramDraftId = router.query.draftId;
+  const draftContent = useSelector((state: any) => {
+   
+    if (
+      state.draftReducer.selectedDraft !== undefined &&
+      state.draftReducer.selectedDraft !== null &&
+      state.draftReducer.selectedDraft.content !== undefined &&
+      router.query.draftId == state.draftReducer.selectedDraft.id
+    ) {
+      return state.draftReducer.selectedDraft.content;
+    } else {
+      return "";
+    }
+  });
+  const dispatch = useDispatch();
+  const [value, setValue] = useState(draftContent);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const auth: any = useAuth();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const user = {
+    userId: auth.user.uid,
+  };
+  const [message, setMessage] = useState("");
+  const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
-  let pages: any = [];
-  useEffect(() => {
-    // for (let i = 0; i < cnt; i++) {
-    //   pages.push(<Page index={i} key={i} />);
-    // }
-    pages = Page();
-  }, []);
+
+  async function handleDrafts(isDraft:boolean) {
+    try {
+      if (router.query.draftId) {
+        await updateADraftQuestion(isDraft);
+        dispatch(
+          showSnackbar({
+            message: "Draft updated successfully",
+            type: successSnackbar,
+
+            open: true,
+          })
+        );
+      } else {
+        await handleSubmit(true);
+        dispatch(
+          showSnackbar({
+            message: "Draft created successfully",
+            type: successSnackbar,
+
+            open: true,
+          })
+        );
+      }
+    } catch (e) {
+      console.log("Error in handleDrafts", e);
+    }
+  }
+
+  async function createNewQuestion(isDraft:boolean) {
+    try {
+      const body = {
+        content: value,
+        userId: user.userId,
+        isDraft: isDraft,
+      };
+      const response = await fetch("/api/question", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+      const data = await response.json();
+      dispatch(
+        showSnackbar({
+          message: "Question added successfully",
+          type: successSnackbar,
+
+          open: true,
+        })
+      );
+
+      console.log(data);
+    } catch (e) {
+      console.log("Error in addingQuestion : ", e);
+      dispatch(
+        showSnackbar({
+          message: "Error adding question",
+          type: errorSnackbar,
+
+          open: true,
+        })
+      );
+    }
+  }
+  async function handleSubmit(isDraft:boolean) {
+    try {
+      if(paramDraftId){
+        await updateADraftQuestion(isDraft);
+      }else{
+        await createNewQuestion(isDraft)
+      }
+      
+    } catch (e) {
+      console.log("Error in addingQuestion : ", e);
+      dispatch(
+        showSnackbar({
+          message: "Error adding question",
+          type: errorSnackbar,
+
+          open: true,
+        })
+      );
+    }
+  }
+
+  const handleCancel = () => {
+    if (value.length > 0) {
+      setOpen(true);
+    } else {
+      handleClose();
+    }
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    router.back();
+  };
+
+  async function updateADraftQuestion(draft: boolean) {
+    const body = {
+      content: value,
+      userId: user.userId,
+      isDraft: draft,
+      id: router.query.draftId,
+      type: "question",
+      
+    };
+    const response = await fetch("/api/drafts/updateDraft", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    const data = await response.json();
+    console.log("UpdateADraftQuestion : ", data);
+  }
+  async function saveAsDraft() {
+    try {
+      handleDrafts(true);
+      handleClose();
+    } catch (e) {
+      console.log("Error in saveAsDraft : ", e);
+    }
+  }
   return (
     <div className={styles.home_container}>
       <LumiaAppBarWithPostButton
         onBackClick={() => {
-          router.back();
+          handleCancel();
         }}
-        onPostClick={() => {}}
+        onPostClick={async () => {
+          await handleSubmit(false);
+        }}
       />
       <Box height={20} />
       <TextField
         id="outlined-multiline-flexible"
         label="Ask a question"
-     
         multiline
         sx={{ width: "90%", height: "80vh" }}
         maxRows={15}
         rows={10}
         value={value}
-
-        
         onChange={handleChange}
       />
-     
+      {snackbarOpen === true ? (
+        <CheckBoxRounded sx={{ color: "green" }} />
+      ) : null}
+      <ConfirmDialog
+        open={open}
+        title={paramDraftId ? "Update draft" : "Save as draft"}
+        content={
+          paramDraftId ? (
+            <p>Would you like to update this draft?</p>
+          ) : (
+            <p>Would you like to save this question as Draft?</p>
+          )
+        }
+        handleSave={saveAsDraft}
+        handleClose={handleClose}
+        cancelButtonText={"No"}
+        confirmButtonText={"Yes"}
+      />
     </div>
   );
 };

@@ -1,0 +1,145 @@
+
+.answer_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: start;
+  margin: 18px;
+  /* width: 90vw; */
+  /* min-width: 950px; */
+  max-width: 1500px;
+  
+}
+
+.answer_content_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-left: 10px;
+}
+
+.answer_mobile_content_container{
+    display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-left: 10px;
+}
+
+.answer_header_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: start;
+  flex:1;
+}
+.answer_user_name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #222845;
+  margin-bottom: 8px;
+}
+
+.answer_date {
+  font-size: 14px;
+  color: #222845;
+  margin-bottom: 8px;
+}
+
+.answer_content_text {
+  font-size: 16px;
+  color: #222845;
+  /* margin-bottom: 8px; */
+  
+  margin-top:18px;
+}
+
+.answer_btn_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 18px;
+}
+
+.answer_textfield_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 18px;
+ 
+  margin-bottom: 15px;
+  min-width: 950px;
+}
+
+.answer_textfield_column_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  flex:1;
+  max-width: 1500px;
+  min-width:1000px
+}
+
+.answer_textfield_btn_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  max-width: 1500px;
+  
+}
+
+.answer_textfield {
+  flex: 1;
+}
+
+.answer_root_textfield {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: start;
+  margin: 20px;
+  max-width: 950px;
+  padding-left:15px;
+  flex:1;
+}
+
+.read_or_hide{
+  color: rgb(192,192,192);
+  cursor: pointer;
+}
+@media (max-width:1000px) {
+    .answer_container {
+      
+        /* width: 90vw; */
+        /* min-width: 950px; */
+        width:90vw;
+        
+      }
+
+
+      .answer_textfield_container {
+        width:80vw;
+        min-width: 100px;
+        margin-left:20px
+      }
+
+      .answer_root_textfield {
+        width:90vw;
+      }
+      .answer_content_text {
+       width:70vw;
+      }
+
+      .answer_textfield_column_container{
+        width:90vw;
+        min-width: 100px;
+      }
+      
+}
+
+

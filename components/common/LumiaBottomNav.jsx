@@ -1,17 +1,11 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import RestoreIcon from "@mui/icons-material/Restore";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ArchiveIcon from "@mui/icons-material/Archive";
+
 import Paper from "@mui/material/Paper";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemText from "@mui/material/ListItemText";
-import Avatar from "@mui/material/Avatar";
+
 import {
   AddCircle,
   Home,
@@ -20,7 +14,11 @@ import {
   AccountCircle,
 } from "@mui/icons-material";
 import { useRouter } from "next/router";
-
+import { Badge, useMediaQuery } from "@mui/material";
+import { DEV_API_URL, GRAPHQL_API_URL } from "../../config/urls";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUnread } from "../../redux/slices/notifiSlice";
+import { useAuth } from "../auth/AuthProvider";
 function refreshMessages() {
   const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
 
@@ -32,26 +30,14 @@ function refreshMessages() {
 export default function LumiaBottomNav({ children, item = 0 }) {
   const [value, setValue] = React.useState(item);
   const ref = React.useRef(null);
-  const [messages, setMessages] = React.useState(() => refreshMessages());
   const router = useRouter();
-  React.useEffect(() => {
-    ref.current.ownerDocument.body.scrollTop = 0;
-    setMessages(refreshMessages());
-  }, [value, setMessages]);
+  const mobileScreen = useMediaQuery("(max-width:400px)");
 
+  const styling = mobileScreen ? { fontSize: "0px" } : {};
   return (
     <Box sx={{ pb: 7 }} ref={ref}>
       <CssBaseline />
-      {/* <List>
-        {messages.map(({ primary, secondary, person }, index) => (
-          <ListItem button key={index + person}>
-            <ListItemAvatar>
-              <Avatar alt="Profile Picture" src={person} />
-            </ListItemAvatar>
-            <ListItemText primary={primary} secondary={secondary} />
-          </ListItem>
-        ))}
-      </List> */}
+
       {children}
       <Paper
         sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
@@ -61,6 +47,12 @@ export default function LumiaBottomNav({ children, item = 0 }) {
           showLabels
           value={value}
           sx={{
+            "& .MuiButtonBase-root": {
+              padding: 0,
+            },
+            "& .MuiBottomNavigationAction-label": {
+              ...styling,
+            },
             backgroundColor: "#222845",
             "& .Mui-selected, .Mui-selected > svg": {
               color: "#FF748A",
@@ -78,48 +70,41 @@ export default function LumiaBottomNav({ children, item = 0 }) {
           }}
         >
           <BottomNavigationAction
+            sx={styling}
             label="Home"
-            onClick={
-              () => {
-                router.push("/home");
-              }
-            }
+            onClick={() => {
+              router.push("/home");
+            }}
             icon={<Home sx={{ color: "#222845" }} />}
           />
           <BottomNavigationAction
             label="Questions"
-            onClick={
-              () => {
-                router.push("/questions");
-              }
-            }
+            onClick={() => {
+              router.push("/questions");
+            }}
             icon={<QuestionAnswer sx={{ color: "#222845" }} />}
           />
           <BottomNavigationAction
             label="Add"
-            onClick={
-              () => {
-                router.push("/addquestion");
-              }
-            }
+            sx={styling}
+            onClick={() => {
+              router.push("/addquestion");
+            }}
             icon={<AddCircle sx={{ color: "#222845" }} />}
           />
           <BottomNavigationAction
             label="Notification"
-            onClick={
-              () => {
-                router.push("/notifications");
-              }
-            }
-            icon={<NotificationsActive sx={{ color: "#222845" }} />}
+            sx={styling}
+            onClick={() => {
+              router.push("/notifications");
+            }}
+            icon={<NotificationBadge />}
           />
           <BottomNavigationAction
             label="Account"
-            onClick={
-              () => {
-                router.push("/account");
-              }
-            }
+            onClick={() => {
+              router.push("/account");
+            }}
             icon={<AccountCircle sx={{ color: "#222845" }} />}
           />
         </BottomNavigation>
@@ -128,47 +113,67 @@ export default function LumiaBottomNav({ children, item = 0 }) {
   );
 }
 
-const messageExamples = [
-  {
-    primary: "Brunch this week?",
-    secondary:
-      "I'll be in the neighbourhood this week. Let's grab a bite to eat",
-    person: "/static/images/avatar/5.jpg",
-  },
-  {
-    primary: "Birthday Gift",
-    secondary: `Do you have a suggestion for a good present for John on his work
-      anniversary. I am really confused & would love your thoughts on it.`,
-    person: "/static/images/avatar/1.jpg",
-  },
-  {
-    primary: "Recipe to try",
-    secondary:
-      "I am try out this new BBQ recipe, I think this might be amazing",
-    person: "/static/images/avatar/2.jpg",
-  },
-  {
-    primary: "Yes!",
-    secondary: "I have the tickets to the ReactConf for this year.",
-    person: "/static/images/avatar/3.jpg",
-  },
-  {
-    primary: "Doctor's Appointment",
-    secondary:
-      "My appointment for the doctor was rescheduled for next Saturday.",
-    person: "/static/images/avatar/4.jpg",
-  },
-  {
-    primary: "Discussion",
-    secondary: `Menus that are generated by the bottom app bar (such as a bottom
-      navigation drawer or overflow menu) open as bottom sheets at a higher elevation
-      than the bar.`,
-    person: "/static/images/avatar/5.jpg",
-  },
-  {
-    primary: "Summer BBQ",
-    secondary: `Who wants to have a cookout this weekend? I just got some furniture
-      for my backyard and would love to fire up the grill.`,
-    person: "/static/images/avatar/1.jpg",
-  },
-];
+function NotificationBadge() {
+  const auth = useAuth();
+  const unread = useSelector((state) => state.notifReducer.unread);
+  const dispatch = useDispatch();
+
+  async function getInitialUnreadCount() {
+    const url = new URL(
+      "/api/notifications?userId=" + auth.user.uid,
+      DEV_API_URL
+    );
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const response = await fetch(url, options);
+    const data = await response.json();
+    console.log(data)
+    dispatch(updateUnread(data["count"]));
+  }
+  useEffect(() => {
+    try {
+      getInitialUnreadCount();
+    } catch (e) {
+      console.log("Error in getting initial unread count : ", e);
+    }
+  }, []);
+  useEffect(() => {
+    const url = new URL(GRAPHQL_API_URL);
+    url.searchParams.append(
+      "query",
+      /* GraphQL */ `
+        subscription Notifications($uid: String!) {
+          unread(uid: $uid) {
+            unread
+          }
+        }
+      `
+    );
+
+    url.searchParams.append(
+      "variables",
+      //@ts-ignore
+      JSON.stringify({ uid: auth.user.uid })
+    );
+
+    const eventsource = new EventSource(url.toString(), {
+      withCredentials: true, // This is required for cookies
+    });
+
+    eventsource.onmessage = function (event) {
+      const data = JSON.parse(event.data);
+      console.log(data);
+
+      dispatch(updateUnread(data.data.unread.unread));
+    };
+  }, []);
+  return (
+    <Badge badgeContent={unread} color={"secondary"}>
+      <NotificationsActive sx={{ color: "#222845" }} />
+    </Badge>
+  );
+}

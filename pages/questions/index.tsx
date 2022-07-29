@@ -1,35 +1,91 @@
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
-import  Page  from "../../components/home/Page";
+
 import Post from "../../components/home/Post";
 import styles from "../../styles/Home.module.css";
 import LumiaStickyBars from "../../components/common/LumiaStickyBars";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
+import { Question } from "@prisma/client";
+import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { loadSelectedQuestion } from "../../redux/slices/questionSlice";
+import { loadDynamicQuestionsActionString } from "../../redux/slices/dynamicQuestionReducer";
+import { useSession, signIn, signOut } from "next-auth/react";
+import ProtectedComponent from "../../components/auth/ProtectedComponent";
+import {
+  getCurrentUserUID,
+  verifyToken,
+} from "../../components/auth/firebaseHelpers";
+import nookies from "nookies";
+import EmptyState from "../../components/common/EmptyState";
+//@ts-ignore
 
-const Questions: NextPage = () => {
-  const [cnt, setCnt] = useState(2);
-  let pages : any = [];
+export async function getServerSideProps(context: any) {
+  const cookies = nookies.get(context);
+  const token = await verifyToken(cookies);
+  const url = new URL(
+    "/api/question?userId=" + token.uid,
+    process.env.DEV_API_URL
+  );
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await response.json();
+  console.log(data);
+
+  // Pass data to the page via props
+  return {
+    props: {
+      questions: data,
+    },
+  };
+}
+
+const Questions: NextPage = (props: any) => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    // for (let i = 0; i < cnt; i++) {
-    //   pages.push(<Page index={i} key={i} />);
-    // }
-   pages = Page()
-
+    dispatch({
+      type: loadDynamicQuestionsActionString,
+      payload: props.questions,
+    });
   }, []);
   return (
-  
     <div className={styles.home_container}>
-       
-      
-        <LumiaStickyBars item={1}> <> <Post className={`${styles.post_cards}  ${styles.first_post_card}`}/>
-        <Post className={styles.post_cards}/>
-        <Post className={styles.post_cards}/>
-        <Post className={styles.post_cards}/>
-        <Post className={styles.post_cards}/>
-        <Button  sx={{alignSelf:"center",margin:"auto",width:"100%"}} onClick={() => setCnt(cnt + 1)}>Questions</Button></></LumiaStickyBars>
-     
-      </div>
-   
+      <LumiaStickyBars item={1}>
+        {" "}
+        <>
+          {props.questions.length > 0 ? (
+            props.questions.map((question: Question, index: number) => {
+              console.log(question);
+              return (
+                <Post
+                  key={index}
+                  className={styles.post_cards}
+                  content={question.content}
+                  question={question}
+                  onClick={async () => {
+                    console.log("CLocled");
+                    dispatch(loadSelectedQuestion(question));
+                    router.push({
+                      pathname: "/questions/" + question.id,
+                      query: { questionId: question.id },
+                    });
+                  }}
+                />
+              );
+            })
+          ) : (
+           <EmptyState text={"No questions added yet"}/>
+          )}
+        </>
+      </LumiaStickyBars>
+    </div>
   );
 };
 
