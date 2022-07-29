@@ -46,7 +46,7 @@ const AddQuestionPage: NextPage = () => {
   const auth: any = useAuth();
 
   const user = {
-    userId: auth.user.uid,
+    userId: auth===null || auth.user===null ? null: auth.user.uid,
   };
   const [message, setMessage] = useState("");
   const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
