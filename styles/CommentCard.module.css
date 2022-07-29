@@ -1,7 +1,7 @@
 .comment_container {
     display: flex; /* or inline-flex */
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
     align-items:center;
     margin:18px;
   }
@@ -10,7 +10,7 @@
 .comment_row_container{
     display: flex; /* or inline-flex */
     flex-direction: row;
-    justify-content: start;
+    justify-content: flex-start;
     align-items:center;
     margin-left:22px;
 }
@@ -18,7 +18,7 @@
 .comment_reply_row_container{
     display: flex; /* or inline-flex */
     flex-direction: row;
-    justify-content: start;
+    justify-content: flex-start;
     align-items:center;
     
 }
@@ -26,7 +26,7 @@
 .comment_avatar{
     width: 40px;
     height:40px;
-    align-self: start;
+    align-self: flex-start;
     margin-right: 15px;
     margin-top:15px;
     order:0;
