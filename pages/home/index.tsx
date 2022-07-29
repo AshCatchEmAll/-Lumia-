@@ -21,7 +21,7 @@ import { Filter, Sort } from "@mui/icons-material";
 import { Typography } from "antd";
 import { useAuth } from "../../components/auth/AuthProvider";
 import SortDropdown from "../../components/home/SortDropdown";
-import { DEV_API_URL } from "../../config/urls";
+import { DEV_API_URL } from "../../components/config/urls";
 export async function getServerSideProps(context: any) {
   try{
     const cookies = nookies.get(context);
