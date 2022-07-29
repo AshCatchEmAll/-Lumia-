@@ -1,7 +1,7 @@
 .comment_container {
     display: flex; /* or inline-flex */
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: start;
     align-items:center;
     margin:18px;
   }
@@ -10,7 +10,7 @@
 .comment_row_container{
     display: flex; /* or inline-flex */
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: start;
     align-items:center;
     margin-left:22px;
 }
@@ -18,7 +18,7 @@
 .comment_reply_row_container{
     display: flex; /* or inline-flex */
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: start;
     align-items:center;
     
 }
