@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useEffect, useState, useRef } from "react";
-import Page from "../../components/home/Page";
+
 import Post from "../../components/home/Post";
 import styles from "../../styles/Home.module.css";
 import LumiaStickyBars from "../../components/common/LumiaStickyBars";
