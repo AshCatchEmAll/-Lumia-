@@ -18,10 +18,10 @@ import { useRouter } from "next/router";
 //@ts-ignore
 
 export async function getServerSideProps(context: any) {
-  try{
+  try {
     const cookies = nookies.get(context);
     const token = await verifyToken(cookies);
-  
+
     if (token.uid) {
       return {
         props: {
@@ -30,42 +30,44 @@ export async function getServerSideProps(context: any) {
       };
     } else {
       return {
-        user: null,
+        props: {
+          user: null,
+        },
       };
     }
-  }catch(e){
+  } catch (e) {
     return {
-      user: null,
+      props: {
+        user: null,
+      },
     };
   }
-  
+
   // Pass data to the page via props
 }
 
 const AccountPage: NextPage = ({ user }: any) => {
   const router = useRouter();
 
- 
-    return (
-      <div
-        className={styles.account_container}
-        style={{ backgroundColor: "#d4d8f0" }}
-      >
-        <LumiaStickyBars item={4}>
-          {" "}
-          <>
-            <Box height={20} />
-            <div style={{ margin: "auto", width: "100px", height: "100px" }}>
-              <BadgeAvatar />
-            </div>
+  return (
+    <div
+      className={styles.account_container}
+      style={{ backgroundColor: "#d4d8f0" }}
+    >
+      <LumiaStickyBars item={4}>
+        {" "}
+        <>
+          <Box height={20} />
+          <div style={{ margin: "auto", width: "100px", height: "100px" }}>
+            <BadgeAvatar />
+          </div>
 
-            <Box height={20} />
-            <AccountListTile />
-          </>
-        </LumiaStickyBars>
-      </div>
-    );
-
+          <Box height={20} />
+          <AccountListTile />
+        </>
+      </LumiaStickyBars>
+    </div>
+  );
 };
 
 export default AccountPage;

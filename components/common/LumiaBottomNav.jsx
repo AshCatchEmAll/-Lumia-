@@ -19,13 +19,7 @@ import { DEV_API_URL, GRAPHQL_API_URL } from "../config/urls";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUnread } from "../../redux/slices/notifiSlice";
 import { useAuth } from "../auth/AuthProvider";
-function refreshMessages() {
-  const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
 
-  return Array.from(new Array(50)).map(
-    () => messageExamples[getRandomInt(messageExamples.length)]
-  );
-}
 
 export default function LumiaBottomNav({ children, item = 0 }) {
   const [value, setValue] = React.useState(item);
@@ -136,12 +130,14 @@ function NotificationBadge() {
   }
   useEffect(() => {
     try {
+      if(auth===null || auth.user===null) return
       getInitialUnreadCount();
     } catch (e) {
       console.log("Error in getting initial unread count : ", e);
     }
-  }, []);
+  }, [auth]);
   useEffect(() => {
+    if(auth===null || auth.user===null) return
     const url = new URL(GRAPHQL_API_URL);
     url.searchParams.append(
       "query",
@@ -170,7 +166,7 @@ function NotificationBadge() {
 
       dispatch(updateUnread(data.data.unread.unread));
     };
-  }, []);
+  }, [auth]);
   return (
     <Badge badgeContent={unread} color={"secondary"}>
       <NotificationsActive sx={{ color: "#222845" }} />

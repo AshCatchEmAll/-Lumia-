@@ -1,1 +1,0 @@
-export const firebaseAPI = "AIzaSyD9vIy7sAPFnu5wgUqqhh_LSc2lXRF21OI"

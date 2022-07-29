@@ -1,4 +1,4 @@
-const lumia = {
+{
   "type": "service_account",
   "project_id": "lumia-685bb",
   "private_key_id": "fa0dd9fafba619ef04171da08daddbd7baebfda3",
@@ -12,4 +12,3 @@ const lumia = {
 }
 
 
-export default lumia;

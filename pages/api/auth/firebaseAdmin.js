@@ -1,6 +1,7 @@
 import  admin from "firebase-admin";
-import lumia from "./lumia";
+import lumia from "./lumia.json";
 const handler = async (req, res) => {
+  console.log(lumia)
   try {
     const { cookies } = req.body;
     if(cookies.token===undefined || cookies.token===null){

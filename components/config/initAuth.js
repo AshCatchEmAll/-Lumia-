@@ -1,9 +1,8 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { firebaseAPI } from "./firebase";
 
 const firebaseConfig = {
-  apiKey: firebaseAPI,
+  apiKey: "AIzaSyD9vIy7sAPFnu5wgUqqhh_LSc2lXRF21OI",
 
   authDomain: "lumia-685bb.firebaseapp.com",
 
