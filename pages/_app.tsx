@@ -2,7 +2,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 
 import LumiaSnackbar from "../components/app/LumiaSnackbar";
-import auth from "../config/initAuth";
+import auth from "../components/config/initAuth";
 import store from "../redux/store";
 import { Provider } from "react-redux";
 import AuthProvider from "../components/auth/AuthProvider";
@@ -12,7 +12,7 @@ import {
   ApolloProvider,
   gql,
 } from "@apollo/client";
-import { GRAPHQL_API_URL } from "../config/urls";
+import { GRAPHQL_API_URL } from "../components/config/urls";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const client = new ApolloClient({

@@ -11,7 +11,7 @@ import DraftsIcon from "@mui/icons-material/Drafts";
 import { useRouter } from "next/router";
 import { BookmarksRounded, Logout } from "@mui/icons-material";
 import { getAuth } from "firebase/auth";
-import app from "../../config/initAuth";
+import app from "../config/initAuth";
 import { signOut } from "../auth/firebaseHelpers";
 
 export default function AccountListTile() {

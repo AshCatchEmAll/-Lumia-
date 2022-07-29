@@ -17,7 +17,7 @@ import { loadSelectedQuestion } from "../../redux/slices/questionSlice";
 import { Bookmark, BookmarkRemove, DeleteForever } from "@mui/icons-material";
 import ConfirmDialog from "../common/ConfirmDialog";
 import { addQuestionActionString } from "../../redux/slices/dynamicQuestionReducer";
-import { DEV_API_URL } from "../../config/urls";
+import { DEV_API_URL } from "../config/urls";
 
 export default function NotificationCard({ className, notification }) {
   const mobileScreen = useMediaQuery("(max-width:400px)");

@@ -1,7 +1,7 @@
 import { Typography,Button, useMediaQuery } from "@mui/material";
 import React,{ useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DEV_API_URL } from "../../config/urls";
+import { DEV_API_URL } from "../config/urls";
 import { openReplies } from "../../redux/slices/commentSlice";
 import { loadDynamicCommentsActionString } from "../../redux/slices/dynamicCommentReducer";
 import { Answer } from "./Answer";

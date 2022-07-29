@@ -15,7 +15,7 @@ import {
 } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import { Badge, useMediaQuery } from "@mui/material";
-import { DEV_API_URL, GRAPHQL_API_URL } from "../../config/urls";
+import { DEV_API_URL, GRAPHQL_API_URL } from "../config/urls";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUnread } from "../../redux/slices/notifiSlice";
 import { useAuth } from "../auth/AuthProvider";

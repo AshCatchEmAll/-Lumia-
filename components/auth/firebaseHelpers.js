@@ -1,6 +1,6 @@
 import { getAuth, onAuthStateChanged, updateProfile } from "firebase/auth";
-import app from "../../config/initAuth";
-import { DEV_API_URL } from "../../config/urls";
+import app from "../config/initAuth";
+import { DEV_API_URL } from "../config/urls";
 export function getCurrentUserUID() {
   const auth = getAuth(app);
   console.log("Called user UID: ", auth.currentUser?.uid);

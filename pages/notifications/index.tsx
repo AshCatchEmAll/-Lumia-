@@ -7,7 +7,7 @@ import LumiaStickyBars from "../../components/common/LumiaStickyBars";
 import NotificationCard from "../../components/notifications/NotificationCard";
 import { Button } from "@mui/material";
 import { useAuth } from "../../components/auth/AuthProvider";
-import { DEV_API_URL } from "../../config/urls";
+import { DEV_API_URL } from "../../components/config/urls";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUnread } from "../../redux/slices/notifiSlice";
 import EmptyState from "../../components/common/EmptyState";

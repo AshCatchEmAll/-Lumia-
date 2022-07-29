@@ -8,7 +8,7 @@ import React, { useRef, useState } from "react";
 import ConfirmDialog from "../common/ConfirmDialog";
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import app from "../../config/initAuth";
+import app from "../config/initAuth";
 import { useAuth } from "../auth/AuthProvider";
 import { updateUserAvatar } from "../auth/firebaseHelpers";
 const storage = getStorage(app);

@@ -1,7 +1,5 @@
-var admin = require("firebase-admin");
-
-var serviceAccount = require("./lumia.json");
-
+import  admin from "firebase-admin";
+import lumia from "./lumia.json";
 const handler = async (req, res) => {
   try {
     const { cookies } = req.body;
@@ -13,7 +11,7 @@ const handler = async (req, res) => {
     
     if (!admin.apps.length) {
       admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
+        credential: admin.credential.cert(lumia),
       });
     }
     console.log("API called with cookies: ", cookies);

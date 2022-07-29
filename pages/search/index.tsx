@@ -9,7 +9,7 @@ import LumiaSearchAppBar from "../../components/common/LumiaSearchAppBar";
 import { useRouter } from "next/router";
 import LumiaAppBar from "../../components/common/LumiaAppBar";
 
-import { DEV_API_URL } from "../../config/urls";
+import { DEV_API_URL } from "../../components/config/urls";
 import { useDispatch, useSelector } from "react-redux";
 import { loadDynamicQuestionsActionString } from "../../redux/slices/dynamicQuestionReducer";
 import { searchQuery } from "../../redux/slices/questionSlice";

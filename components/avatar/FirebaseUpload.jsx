@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 
 import { getStorage, ref ,uploadBytes, getDownloadURL} from "firebase/storage";
-import app from "../../config/initAuth";
+import app from "../config/initAuth";
 const storage = getStorage(app);
 export default function FirebaseUpload() {
   const [file, setFile] = useState(null);

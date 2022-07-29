@@ -4,7 +4,7 @@ import CommentCard from "./CommentCard";
 import LikeDislikes from "./LikeDislikes";
 import ReplyComment from "./ReplyComment";
 import Button from "@mui/material/Button";
-import { DEV_API_URL } from "../../config/urls";
+import { DEV_API_URL } from "../config/urls";
 import { useDispatch, useSelector } from "react-redux";
 import { hideReplies as dispatchHideReplies} from "../../redux/slices/commentSlice";
 function SingleComment(props) {

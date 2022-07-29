@@ -10,7 +10,7 @@ import {
   createUserWithEmailAndPassword
 } from "firebase/auth";
 import { createNewUser, updateUserDisplayName } from "../../components/auth/firebaseHelpers";
-import app from "../../config/initAuth";
+import app from "../../components/config/initAuth";
 // import  getAuth  from "../../config/initAuth";
 export const authSlice = createSlice({
   name: "AuthSlice",
