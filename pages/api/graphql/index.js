@@ -1,11 +1,15 @@
+//* This Graphql endpoint is used to query the database for data.
+//* It needs to be seperate Server from the Next.js
+
+
 import { createServer, createPubSub } from "@graphql-yoga/node";
 
-//'user:followerCount': [userId: string, payload: { followerCount: number }]
+
 export const pubSub = createPubSub();
 
 export const config = {
   api: {
-    // Disable body parsing (required for file uploads)
+  
     bodyParser: true,
   },
 };

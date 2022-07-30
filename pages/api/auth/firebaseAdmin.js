@@ -1,10 +1,8 @@
 import  admin from "firebase-admin";
-import lumia from "./lumia.json";
+import lumia from "./adminconfig.json";
 const handler = async (req, res) => {
-  if (req.method == "OPTIONS") {
-    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-    return res.status(200).json({});
-  }
+ 
+
   
   try {
     const { cookies } = req.body;
