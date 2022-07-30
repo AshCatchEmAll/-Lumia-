@@ -21,7 +21,7 @@
 
 
 ## Display Shots
-<pre><div align="center"><img src ="https://user-images.githubusercontent.com/67299491/181867674-4955f70d-23b0-43a0-a867-82bdbcb82e40.png" margin-left="10px"> </br> <img width="1020" alt="image" src="https://user-images.githubusercontent.com/67299491/181867834-5ac1a5be-57b0-466d-8ea8-76392caf59ba.png">          <img src ="ss1.png"/> </br>
+<pre><div align="center"><img src ="https://user-images.githubusercontent.com/67299491/181867674-4955f70d-23b0-43a0-a867-82bdbcb82e40.png" margin-left="10px"></br><img width="1020" alt="image" src="https://user-images.githubusercontent.com/67299491/181867834-5ac1a5be-57b0-466d-8ea8-76392caf59ba.png">          <img src ="ss1.png"/> </br>
 <img src ="ss2.png"  height="500px" width="250px"/> <img src ="ss3.png" height="500px" width="250px"/>  <img src ="ss4.png" height="500px" width="250px"/>
 <div>
 
