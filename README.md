@@ -10,7 +10,7 @@
 
 
 # Table of Content:
-
+- [Live Website](#live-website)
 - [Display Shots](#display-shots)
 - [Running the project](#running-the-project)
 - [Lighthouse Score](#lighthouse-score)
@@ -18,6 +18,12 @@
 - [Future scope](#future-scope)
 - [Demo video](#demo-video)
 
+## Live Website: 
+Since the application is loaded on free plan for render it might take a bit to load the website. Render spins up a container before serving it for the client.
+
+```
+https://lumia-uhhn.onrender.com
+```
 
 
 ## Display Shots
