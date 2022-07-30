@@ -3,7 +3,7 @@ import app from "../config/initAuth";
 import { DEV_API_URL } from "../config/urls";
 export function getCurrentUserUID() {
   const auth = getAuth(app);
-  console.log("Called user UID: ", auth.currentUser?.uid);
+ 
   if (auth.currentUser) {
     return auth.currentUser.uid;
   } else {
@@ -26,7 +26,7 @@ export async function signInWithEmailAndPassword(email, password) {
       return null;
     }
   } catch (e) {
-    console.log(e);
+  
     return null;
   }
 }
@@ -62,10 +62,10 @@ export async function verifyToken(cookies) {
       body: JSON.stringify({ cookies }),
     });
     const data = await response.json();
-    console.log("Data from verifyToken: ", data);
+   
     return data;
   } catch (e) {
-    console.log(e);
+    
     throw e;
   }
 }
@@ -91,9 +91,9 @@ export async function updateUserAvatar(avatar) {
       body: JSON.stringify({ userId: auth.currentUser.uid, avatar }),
     });
     const data = await response.json();
-    console.log("User updated: ", data);
+    
   } catch (e) {
-    console.log("Error updating user: ", e);
+    
     throw e;
   }
 }
@@ -118,12 +118,12 @@ export async function createNewUser(username, email) {
       }),
     });
     const data = await response.json();
-    console.log("User name created: ", data);
+    
     await updateProfile(auth.currentUser, {
       displayName: username,
     });
   } catch (e) {
-    console.log("Error Creating user: ", e);
+    
     throw e;
   }
 }
@@ -149,9 +149,9 @@ export async function updateUserDisplayName(name) {
       body: JSON.stringify({ userId: auth.currentUser.uid, name }),
     });
     const data = await response.json();
-    console.log("User name updated: ", data);
+    
   } catch (e) {
-    console.log("Error updating user name: ", e);
+    
     throw e;
   }
 }

@@ -42,18 +42,18 @@ export default createServer({
     
         unread: {
           subscribe: (_, { uid }) => {
-            console.log(uid);
+            
             return pubSub.subscribe("user:unread", uid);
           },
           resolve: (payload) => {
-            console.log(payload);
+            
             return payload;
           },
         },
       },
       Mutation: {
         publishUnread: (_,{uid}) => {
-          console.log("Mutating rn with uid: " + uid);
+          
           pubSub.publish("user:unread", uid, {
             unread: 30,
           });

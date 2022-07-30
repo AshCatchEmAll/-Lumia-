@@ -62,7 +62,7 @@ export default function Post({
   };
 
   const handleClick = (event) => {
-    console.log("Clicked : ", event.defaultPrevented);
+    
     if (event.defaultPrevented) return;
     onClick(event);
   };
@@ -149,14 +149,14 @@ function QuestionLikes({ question, user }) {
         body: JSON.stringify(body),
       });
       const data = await response.json();
-      console.log("Upvoted : ", data);
+      
       dispatch({ type: addQuestionActionString, payload: data["question"] });
       if(data["question"]["publish"]===true){
         publishUnread({variables:{uid:question.userId,unread:data["question"]["count"]}})
       }
       setIsVoted(!isVoted);
     }catch(e){
-      console.log(e);
+      
       throw new Error(e)
     }
     
@@ -208,7 +208,7 @@ function QuestionDislikes({ question, user }) {
       body: JSON.stringify(body),
     });
     const data = await response.json();
-    console.log("Upvoted : ", data);
+    
     setIsVoted(!isVoted);
     dispatch({ type: addQuestionActionString, payload: data["question"] });
   };

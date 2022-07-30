@@ -58,7 +58,7 @@ export default function MoreOptions({ answer }) {
         body: JSON.stringify(body),
       });
       const data = await response.json();
-      console.log("Bookmarked : ", data);
+     
       if (data["message"]) {
         dispatch(
           showSnackbar({
@@ -101,7 +101,7 @@ export default function MoreOptions({ answer }) {
         body: JSON.stringify(body),
       });
       const data = await response.json();
-      console.log("Deleted : ", data);
+     
       if (data["message"]) {
         dispatch(
           showSnackbar({
@@ -122,7 +122,7 @@ export default function MoreOptions({ answer }) {
         dispatch({ type: deleteDynamicCommentActionString, payload: answer });
       }
     } catch (e) {
-        console.log("Error deleting answer", e);
+       
       dispatch(
         showSnackbar({
           message: "Something went wrong",

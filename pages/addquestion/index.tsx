@@ -77,7 +77,7 @@ const AddQuestionPage: NextPage = () => {
         );
       }
     } catch (e) {
-      console.log("Error in handleDrafts", e);
+      
     }
   }
 
@@ -105,9 +105,9 @@ const AddQuestionPage: NextPage = () => {
         })
       );
 
-      console.log(data);
+      
     } catch (e) {
-      console.log("Error in addingQuestion : ", e);
+      
       dispatch(
         showSnackbar({
           message: "Error adding question",
@@ -127,7 +127,7 @@ const AddQuestionPage: NextPage = () => {
       }
       
     } catch (e) {
-      console.log("Error in addingQuestion : ", e);
+      
       dispatch(
         showSnackbar({
           message: "Error adding question",
@@ -169,14 +169,14 @@ const AddQuestionPage: NextPage = () => {
       body: JSON.stringify(body),
     });
     const data = await response.json();
-    console.log("UpdateADraftQuestion : ", data);
+    
   }
   async function saveAsDraft() {
     try {
       handleDrafts(true);
       handleClose();
     } catch (e) {
-      console.log("Error in saveAsDraft : ", e);
+      
     }
   }
   return (

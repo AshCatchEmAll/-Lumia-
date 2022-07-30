@@ -25,7 +25,7 @@ import nookies from "nookies";
 
 export async function getServerSideProps(context: any) {
   const cookies = nookies.get(context);
-  console.log("COOKIES : ", cookies);
+  
   if (cookies.token === "") {
     return {
       props: {
@@ -93,9 +93,9 @@ function LoginPageColumn({setShowSignup}:any) {
     try {
       //@ts-ignore
       const user = dispatch(loginUser({ email, password }));
-      console.log("Login result", user.payload);
+      
     } catch (e) {
-      console.log(e);
+      
     }
   };
 
@@ -140,7 +140,7 @@ function LoginPageColumn({setShowSignup}:any) {
             try {
               await loginApi();
             } catch (e) {
-              console.log(e);
+              
             }
 
             router.push("/home");
@@ -167,9 +167,9 @@ function RegisterPageColumn({setShowSignup}:any) {
     try {
       //@ts-ignore
       const user = dispatch(createUser({ username, email, password }));
-      console.log("Register result", user.payload);
+      
     } catch (e) {
-      console.log(e);
+      
     }
   };
 
@@ -223,7 +223,7 @@ function RegisterPageColumn({setShowSignup}:any) {
             try {
               await loginApi();
             } catch (e) {
-              console.log(e);
+              
             }
 
             router.push("/home");

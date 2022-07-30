@@ -3,7 +3,7 @@ export default function handler(req, res) {
     res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
     return res.status(200).json({});
   }
-    console.log("Called apis")
+    
     res.status(200).json({ name: 'John Doe' })
   }
   

@@ -23,7 +23,7 @@ function Comments(props) {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(props.questionId);
+    
 
     const body = {
       content: Comment,
@@ -41,7 +41,7 @@ function Comments(props) {
       body: JSON.stringify(body),
     });
     const data = await response.json();
-    console.log(data);
+    
     setComment("");
     // props.refreshComments(data.answer);
     dispatch(addRootComment(data.answer));

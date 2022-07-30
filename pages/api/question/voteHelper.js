@@ -34,7 +34,7 @@ export async function findQuestionVote(body) {
 }
 async function sendQuestionLikedNotification(body) {
   try {
-    console.log(body)
+    
     const user =  increaseUserUnreadNotification(body)
     await prisma.notification.create({
       data: {

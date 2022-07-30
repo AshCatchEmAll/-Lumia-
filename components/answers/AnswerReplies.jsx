@@ -11,7 +11,7 @@ import answerStyle from "../../styles/Answers.module.css";
 import { getCurrentUserUID } from "../auth/firebaseHelpers";
 function AnswerReplies({ answer }) {
   const mobileScreen = useMediaQuery("(max-width:400px)");
-  console.log("Mobile screen: ", mobileScreen);
+ 
   const dispatch =   useDispatch();
   const [viewReplies, setViewReplies] = useState(false);
   const [answers, setAnswers] = useState([]);
@@ -22,7 +22,7 @@ function AnswerReplies({ answer }) {
   
   const fetchReplyComments = async () => {
    
-    console.log(process.env.DEV_API_URL);
+
     const url = new URL(
       "/api/answer?questionId=" +
         answer.questionId +
@@ -30,7 +30,7 @@ function AnswerReplies({ answer }) {
         answer.id + "&userId=" + uid,
       DEV_API_URL
     );
-    console.log(url.pathname);
+
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -38,7 +38,7 @@ function AnswerReplies({ answer }) {
       },
     });
     const data = await response.json();
-    console.log(data);
+
     setAnswers(data["answers"]);
     setViewReplies(true);
     dispatch({ type: loadDynamicCommentsActionString, payload: data["answers"] });

@@ -53,7 +53,7 @@ export async function getServerSideProps(context: any) {
   });
   const question = await questionRes.json();
   
-  console.log(question);
+  
 
   return {
     props: {
@@ -77,7 +77,7 @@ const SingleQuestionPage: NextPage = (props: any) => {
         payload: selectedQuestion,
       });
     }
-    console.log("QuestionID : " + questionId);
+    
     dispatch(loadRootComments(props.answers));
     dispatch({ type: loadDynamicCommentsActionString, payload: props.answers });
   }, []);

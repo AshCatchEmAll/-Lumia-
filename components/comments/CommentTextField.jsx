@@ -9,7 +9,7 @@ const [enableBtn, setEnableBtn] = useState(false);
     const handleChange = (e) => {
        if(e.currentTarget.value.length > 0 && enableBtn === false){
         setEnableBtn(true);
-        console.log(e.currentTarget.value.length)
+        
        }else if(e.currentTarget.value.length === 0 && enableBtn === true){
         setEnableBtn(false);
        }

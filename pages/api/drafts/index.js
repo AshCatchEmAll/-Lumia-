@@ -21,10 +21,10 @@ export default async function handler(req, res) {
   } else if (req.method == "DELETE") {
     try {
       const draft = await deleteDraft(req.body);
-      console.log("Bookmark deleted : ", draft);
+      
       res.status(200).json({ draft });
     } catch (e) {
-      console.log(e);
+      
       res.status(400).json({ message: "Something went wrong" });
     }
   }

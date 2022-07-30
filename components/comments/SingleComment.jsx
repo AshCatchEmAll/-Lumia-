@@ -26,7 +26,7 @@ function SingleComment(props) {
   };
 
   const fetchReplyComments = async () => {
-    console.log(process.env.DEV_API_URL);
+    
     const url = new URL(
       "/api/answer?questionId=" +
         props.questionId +
@@ -34,7 +34,7 @@ function SingleComment(props) {
         props.answer.id,
       DEV_API_URL
     );
-    console.log(url.pathname);
+    
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -42,7 +42,7 @@ function SingleComment(props) {
       },
     });
     const data = await response.json();
-    console.log(data);
+    
     setReplyAnswers(data["answers"]);
     setReplies(true);
     // Pass data to the page via props

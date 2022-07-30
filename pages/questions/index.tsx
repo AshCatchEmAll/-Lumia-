@@ -34,7 +34,7 @@ export async function getServerSideProps(context: any) {
     },
   });
   const data = await response.json();
-  console.log(data);
+  
 
   // Pass data to the page via props
   return {
@@ -61,7 +61,7 @@ const Questions: NextPage = (props: any) => {
         <>
           {props.questions.length > 0 ? (
             props.questions.map((question: Question, index: number) => {
-              console.log(question);
+              
               return (
                 <Post
                   key={index}
@@ -69,7 +69,7 @@ const Questions: NextPage = (props: any) => {
                   content={question.content}
                   question={question}
                   onClick={async () => {
-                    console.log("CLocled");
+                    
                     dispatch(loadSelectedQuestion(question));
                     router.push({
                       pathname: "/questions/" + question.id,

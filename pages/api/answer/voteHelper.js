@@ -48,7 +48,7 @@ async function sendAnswerLikedNotification(body) {
     });
     return user;
   } catch (e) {
-    console.log("Error in mutation : ", e);
+    
     throw new Error(e);
   }
 }
@@ -56,7 +56,7 @@ async function sendAnswerLikedNotification(body) {
 
 async function createAnswerVote(body) {
   try {
-    console.log("API CALLED WITH *USER : ", body);
+    
     await prisma.answerVotes.create({
       data: {
         answerId: Number(body.answerId),

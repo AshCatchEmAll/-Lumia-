@@ -7,7 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 export default function SimpleSnackbar({open, message, onClose}) {
   const [snackbarOpen, setOpen] = React.useState(open);
 
-  console.log("SimpleSnackbar", open, message);
+  
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {

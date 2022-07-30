@@ -18,7 +18,7 @@ export default function AuthProvider({ children }) {
     return getAuth(app) .onIdTokenChanged(async (user) => {
       if (!user) {
         setUser(null);
-        console.log("Nookies ");
+
         nookies.set(undefined, "token", "", { path: "/" });
         router.replace("/");
       } else {

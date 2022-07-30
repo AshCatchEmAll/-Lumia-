@@ -14,7 +14,7 @@ export const dynamicCommentReducer = createReducer(initialState, (builder) => {
         (accumulator, current) => ({ ...accumulator, [current.id]: current }),
         {}
       );
-      console.log("ADDeed case trifgered");
+      
       return {
         ...state,
         ...commentIds,

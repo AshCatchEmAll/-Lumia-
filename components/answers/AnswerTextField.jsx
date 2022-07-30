@@ -47,7 +47,7 @@ function AnswerTextField({ answer = {}, variant = rootVariant, questionId }) {
         body: JSON.stringify(body),
       });
       const data = await response.json();
-      console.log("POSTED ANSWER : ", data,auth);
+     
       setValue("");
       // props.refreshComments(data.answer);
       data.answer.user = user;
@@ -66,7 +66,7 @@ function AnswerTextField({ answer = {}, variant = rootVariant, questionId }) {
         parentAnswerId: answer.id,
       };
 
-      console.log(body);
+   
 
       const response = await fetch(`/api/answer`, {
         method: "POST",
@@ -77,7 +77,7 @@ function AnswerTextField({ answer = {}, variant = rootVariant, questionId }) {
       });
       const data = await response.json();
       data.answer.user = user;
-      console.log(data);
+
       setValue("");
 
       dispatch(

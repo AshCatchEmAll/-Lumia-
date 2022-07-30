@@ -1,7 +1,7 @@
 import { prisma } from "../../../prisma/db_init";
 
 export default async function handler(req, res) {
-  console.log(req.query);
+  
   if (req.method == "OPTIONS") {
     res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
     return res.status(200).json({});
@@ -12,13 +12,13 @@ export default async function handler(req, res) {
     if (id) {
     
        const q =  await getQuestionByID(id);
-       console.log("Length of questions: " + q.length);
+       
        res.json({question:q});
     } else {
         const {  userId } = req.query;
        
         const q = await getQuestions(userId);
-        console.log("Length of questions: " + q.length);
+        
         res.json(q);
     }
   } else if (req.method === "POST") {

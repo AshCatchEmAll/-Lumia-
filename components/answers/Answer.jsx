@@ -192,7 +192,7 @@ function ThumbDownComponent({ answer ,user}) {
       body: JSON.stringify(body),
     });
     const data = await response.json();
-    console.log("Downvoted : ", data);
+   
    
     dispatch({ type: addCommentActionString, payload: data["answer"] });
     setIsVoted(!isVoted);
@@ -252,14 +252,14 @@ function ThumbUpComponent({ answer,user }) {
       body: JSON.stringify(body),
     });
     const data = await response.json();
-    console.log("Upvoted : ", data);
+   
     dispatch({ type: addCommentActionString, payload: data["answer"] });
     if(data["answer"]["publish"]===true){
       publishUnread({variables:{uid:answer.userId,unread:data["answer"]["count"]}})
     }
     setIsVoted(!isVoted);
   };
-  console.log("isVoted : ", userVoted);
+ 
   return (
     <>
       {" "}

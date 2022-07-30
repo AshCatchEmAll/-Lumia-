@@ -15,14 +15,14 @@ export async function getServerSideProps(context) {
     const token = await verifyToken(cookies);
   
     if (token.uid) {
-      console.log("FGOING CRAZY")
+      
       return {
         props: {
           user: token,
         },
       };
     } else {
-      console.log("FGOING CRAZY INNER")
+      
       return {
         props: {
           user: null,
@@ -30,7 +30,7 @@ export async function getServerSideProps(context) {
       };
     }
   }catch(e){
-    console.log(e)
+    
     throw e;
   }
   
@@ -40,12 +40,12 @@ function ProtectedComponent(props) {
   const router = useRouter();
 
   // useEffect(() => {
-  //   console.log("ProtectedComponent ", props.user);
+  //   
   //   if (props.user === null|| props.user === undefined ) {
   //     router.push("/");
   //   }
   // }, []);
-  console.log(props.user)
+  
   return props.user!==undefined ? (
     props.children
   ) : (

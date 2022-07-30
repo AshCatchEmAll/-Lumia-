@@ -88,7 +88,7 @@ export default function BookmarkCard({ className, bookmark }) {
         body: JSON.stringify({ id: bookmark.id, type: "questionBookmark" }),
       });
 
-      console.log("DELETED BOOKMARK : ");
+      
       setVisible(false);
     } catch (e) {
       throw new Error(e);

@@ -83,7 +83,7 @@ export const fetchFirebaseUser = () => async (dispatch) => {
       return dispatch(authSlice.actions.unsetUser());
     }
   } catch (err) {
-    console.log(err);
+    
     return dispatch(authSlice.actions.authError(err.message));
   }
 };
@@ -92,7 +92,7 @@ export const loginUser =
   ({ email, password }) =>
   async (dispatch) => {
     try {
-      console.log("Email: ", email);
+      
       dispatch(authSlice.actions.fetchingUser());
       const auth = getAuth(app);
 
@@ -101,7 +101,7 @@ export const loginUser =
         email,
         password
       );
-      console.log("Credentials: ", credentials);
+      
       if (credentials && credentials.user) {
         return dispatch(
           authSlice.actions.setUser({
@@ -113,7 +113,7 @@ export const loginUser =
         );
       }
     } catch (err) {
-      console.log(err);
+      
       return dispatch(authSlice.actions.authError(err.code));
     }
   };
@@ -129,7 +129,7 @@ export const createUser = ({ username,email, password }) => async (dispatch) => 
       email,
       password
     );
-    console.log("User: ", user);
+    
     if (user) {
       //update user profile
      
@@ -144,7 +144,7 @@ export const createUser = ({ username,email, password }) => async (dispatch) => 
       );
     }
   } catch (err) {
-    console.log(err);
+    
     return dispatch(authSlice.actions.authError(err.code));
   }
 }

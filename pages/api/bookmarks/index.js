@@ -5,7 +5,7 @@ import {
   getUserBookmarks,
 } from "./bookmarksHelper";
 export default async function handler(req, res) {
-  console.log(req.query);
+  
   if (req.method == "OPTIONS") {
     res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
     return res.status(200).json({});
@@ -25,10 +25,10 @@ export default async function handler(req, res) {
   } else if (req.method == "DELETE") {
     try{
       const bookmark = await deleteBookmark(req.body);
-      console.log("Bookmark deleted : ", bookmark);
+      
       res.status(200).json({ bookmark });
     }catch(e){
-      console.log(e);
+      
       res.status(400).json({ message: "Something went wrong" });
     }
    

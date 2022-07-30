@@ -125,7 +125,7 @@ function NotificationBadge() {
     };
     const response = await fetch(url, options);
     const data = await response.json();
-    console.log(data)
+    
     dispatch(updateUnread(data["count"]));
   }
   useEffect(() => {
@@ -133,7 +133,7 @@ function NotificationBadge() {
       if(auth===null || auth.user===null) return
       getInitialUnreadCount();
     } catch (e) {
-      console.log("Error in getting initial unread count : ", e);
+      
     }
   }, [auth]);
   useEffect(() => {
@@ -162,7 +162,7 @@ function NotificationBadge() {
 
     eventsource.onmessage = function (event) {
       const data = JSON.parse(event.data);
-      console.log(data);
+      
 
       dispatch(updateUnread(data.data.unread.unread));
     };

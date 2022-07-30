@@ -96,7 +96,7 @@ export default function NotificationCard({ className, notification }) {
       };
       const response = await fetch(url, options);
       const data = await response.json();
-      console.log(data)
+      
       
    
       setVisible(false);

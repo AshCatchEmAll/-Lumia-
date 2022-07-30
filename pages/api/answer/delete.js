@@ -1,6 +1,6 @@
 import { prisma } from "../../../prisma/db_init";
 export default async function handler(req, res) {
-  console.log(req.query);
+  
   if (req.method == "OPTIONS") {
     res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
     return res.status(200).json({});
@@ -25,7 +25,7 @@ async function deleteAnswer(body) {
         throw new Error("You are not authorized to delete this answer");
     }
   } catch (e) {
-    console.log("Error in  deleteAnswer: ", e);
+    
     throw new Error(e);
   }
 }
@@ -38,7 +38,7 @@ async function getAnswerByID(body) {
       },
     });
   } catch (e) {
-    console.log("Error in  getAnswerByID: ", e);
+    
     throw new Error(e);
   }
 }

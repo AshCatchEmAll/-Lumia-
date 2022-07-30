@@ -5,7 +5,7 @@ const handler = async (req, res) => {
     res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
     return res.status(200).json({});
   }
-  console.log(lumia)
+  
   try {
     const { cookies } = req.body;
     if(cookies.token===undefined || cookies.token===null){
@@ -19,7 +19,7 @@ const handler = async (req, res) => {
         credential: admin.credential.cert(lumia),
       });
     }
-    console.log("API called with cookies: ", cookies);
+    
     const token = await admin.auth().verifyIdToken(cookies.token);
     const { uid, email, picture } = token;
     return res.status(200).json({ uid, email, picture });

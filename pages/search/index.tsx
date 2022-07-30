@@ -67,7 +67,7 @@ const Bookmarks: NextPage = () => {
       await sleep(350);
       if (currentQuery) {
         const q = await getQuestions();
-        console.log("QUESTIONS : ", q);
+        
         setQuestions(q);
       }
     };

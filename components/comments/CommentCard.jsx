@@ -61,7 +61,7 @@ export default function CommentCard({ answer }) {
       body: JSON.stringify(body),
     });
     const data = await response.json();
-    console.log("Upvoted : ", data);
+    
     setLikes(data["answer"]["likes"])
   }
 
@@ -79,7 +79,7 @@ export default function CommentCard({ answer }) {
       body: JSON.stringify(body),
     });
     const data = await response.json();
-    console.log("Upvoted : ", data);
+    
     setDislikes(data["answer"]["dislikes"])
   }
   const onSubmit = async (e) => {
@@ -94,7 +94,7 @@ export default function CommentCard({ answer }) {
       parentAnswerId: answer.id,
     };
 
-    console.log(body);
+    
 
     const response = await fetch(`/api/answer`, {
       method: "POST",
@@ -104,7 +104,7 @@ export default function CommentCard({ answer }) {
       body: JSON.stringify(body),
     });
     const data = await response.json();
-    console.log(data);
+    
     setCommentValue("");
     openReply();
     dispatch(openReplyTextField({

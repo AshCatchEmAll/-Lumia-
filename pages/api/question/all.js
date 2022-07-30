@@ -1,7 +1,7 @@
 import { prisma } from "../../../prisma/db_init";
 
 export default async function handler(req, res) {
-  console.log(req.query);
+  
   if (req.method == "OPTIONS") {
     res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
     res.header("Access-Control-Allow-Origin","*")
@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     const { userId } = req.query;
     const { sort } = req.query;
     const q = await getQuestions(userId, sort);
-    console.log("Length of questions: " + q.length);
+    
     res.json(q);
   } else {
     res.status(405).send("Method Not Allowed");
@@ -47,7 +47,7 @@ async function getQuestionByID(id) {
 }
 
 async function getQuestions(userId, sort) {
-  console.log("Sort is: " + sort);
+  
   const orderBy =
     sort === "newest" ? [{ createdAt: "desc" }] : [{ likes: "desc" }];
 

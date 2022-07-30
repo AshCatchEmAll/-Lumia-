@@ -32,7 +32,7 @@ const Notifications: NextPage = () => {
     };
     const response = await fetch(url, options);
     const data = await response.json();
-    console.log(data)
+    
 
   }
 
@@ -50,7 +50,7 @@ const Notifications: NextPage = () => {
     };
     const response = await fetch(url, options);
     const data = await response.json();
-    console.log(data)
+    
     dispatch(updateUnread(0));
     setNotification(data["notifications"])
 

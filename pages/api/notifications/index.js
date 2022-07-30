@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   }
   if (req.method === "GET") {
     const userId = req.query.userId;
-      console.log("Its here")
+      
     const count =  await getUserNotificationCount(userId)
     res.status(200).json({ count });
   }else if(req.method === "DELETE"){

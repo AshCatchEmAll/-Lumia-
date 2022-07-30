@@ -10,18 +10,18 @@ const load = async () => {
                 isDraft:false,
             }
         })
-        console.log("Created Questions in Question table");
+        
 
 
         // await prisma.category.createMany({
         //     data: categories
         // });
-        // console.log("Added category data");
+        // 
 
         // await prisma.product.createMany({
         //     data: products
         // })
-        // console.log("Added product data");
+        // 
     } catch (e) {
         console.error(e);
         process.exit(1);

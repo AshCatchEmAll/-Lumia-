@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
     return res.status(200).json({});
   }
-  console.log(req.query);
+  
   req.body["type"] = VoteType.LIKE;
   if (req.method === "POST") {
     const question = await handleQuestionVote(req.body);

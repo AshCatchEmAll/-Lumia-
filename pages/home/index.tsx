@@ -38,7 +38,7 @@ export async function getServerSideProps(context: any) {
     process.env.DEV_API_URL
   );
 
-  console.log(url.pathname);
+  
 
   const response = await fetch(url, {
     method: "GET",
@@ -47,7 +47,7 @@ export async function getServerSideProps(context: any) {
     },
   });
   const data = await response.json();
-  console.log(data);
+  
 
   // Pass data to the page via props
   return {
@@ -56,7 +56,7 @@ export async function getServerSideProps(context: any) {
     },
   };
   }catch(e){
-    console.log(e);
+    
     return {
       props: {
         questions: [],
@@ -90,7 +90,7 @@ const Home: NextPage = (props: any) => {
     }
   }, [sort]);
   async function grabQuestions(uid: string, sortBy: string) {
-    console.log("GRABIING EM ", sort);
+    
     const url = new URL(
       "/api/question/all?" + "sort=" + sortBy + "&userId=" + uid,
       DEV_API_URL
@@ -103,7 +103,7 @@ const Home: NextPage = (props: any) => {
       },
     });
     const data = await response.json();
-    console.log(data);
+    
     setQuestions(data);
   }
 
