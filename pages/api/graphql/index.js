@@ -37,21 +37,9 @@ export default createServer({
         hello: () => "world",
       },
       Subscription: {
-        countdown: {
-          // This will return the value on every 1 sec until it reaches 0
-          subscribe: async function* (_, { from }) {
-            for (let i = from; i >= 0; i--) {
-              await new Promise((resolve) => setTimeout(resolve, 1000));
-              yield { countdown: i };
-            }
-          },
-          randomNumber: {
-            // subscribe to the randomNumber event
-            subscribe: () => {
-              return pubSub.subscribe("randomNumber");
-            },
-          },
-        },
+       
+          
+    
         unread: {
           subscribe: (_, { uid }) => {
             console.log(uid);
@@ -71,10 +59,7 @@ export default createServer({
           });
           return true;
         },
-        broadcastRandomNumber: (_, args) => {
-          // publish a random number
-          pubSub.publish("randomNumber", Math.random());
-        },
+       
       },
     },
   },

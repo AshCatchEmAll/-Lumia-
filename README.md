@@ -1,34 +1,73 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center"><h1>Lumia</h1></div>
+<div align="center"><h3>Being a student made easy</h3></div>
+<div align="center"><img src ="lumia-logo.png" width=300 height=300 style="vertical-align:middle"></div>
 
-## Getting Started
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
+
+<pre><div align="center"><img style="margin-right: 5px;" src="https://img.shields.io/badge/Nextjs-12-blue"/> <img src="https://img.shields.io/badge/%20%20Planetscale-white"/> <img src="https://img.shields.io/badge/%20%20Firebase-9-orange"/> <img src="https://img.shields.io/badge/Graphql-%20%20-purple"/> <img src="https://img.shields.io/badge/Node.js-%20%20-success"/> <img src="https://img.shields.io/badge/Prisma.js-%20%20-green"/> <img src="https://img.shields.io/badge/%20%20Uptime-99%25-orange"/> </div></pre> 
+
+
+
+# Table of Content:
+
+- [Display Shots](#display-shots)
+- [Running the project](#running-the-project)
+- [Lighthouse Score](#lighthouse-score)
+- [Stack in use](#stack-in-use)
+- [Future scope](#future-scope)
+- [Demo video](#demo-video)
+
+
+
+## Display Shots
+<pre><div align="center"><img src ="https://user-images.githubusercontent.com/67299491/181867674-4955f70d-23b0-43a0-a867-82bdbcb82e40.png" margin-left="10px"> </br> <img width="1020" alt="image" src="https://user-images.githubusercontent.com/67299491/181867834-5ac1a5be-57b0-466d-8ea8-76392caf59ba.png">          <img src ="ss1.png"/> </br>
+<img src ="ss2.png"  height="500px" width="250px"/> <img src ="ss3.png" height="500px" width="250px"/>  <img src ="ss4.png" height="500px" width="250px"/>
+<div>
+
+</div>
+</div></pre>
+
+
+
+## Running the project
+- Clone the project
+- Open the project is VS code (or your favorite editor)
+- Create a firebase account
+- Add Firebase Admin config in api/auth/adminconfig.json
+- Add Firebase client config in config/initAuth.js
+- Create a planetscale account and follow the setup steps for <a href="https://docs.planetscale.com/docs/tutorials/prisma-quickstart" target="_blank">prisma + planetscale</a>
+- Fill up env variables for Firebase and Planetscale
+- Run npm install
+- Run npm run dev
+
+
+
+## Lighthouse Score
+![image](https://user-images.githubusercontent.com/67299491/181866012-bbf37b5c-6322-42b4-ba50-fab1eb7118e2.png)
+
+
+## Stack in use
+- Nextjs : Since Lumia involves user generated content , I wanted the SEO to be good and use server side rendering for the pages.
+- Firebase : Lumia delegated authentication and user management to Firebase.
+- Graphql : For live notification updates while using Lumia , Lumia relies on Graphql Subscriptions. It will further improve upon realtime updates for better UX through graphql.
+- Planetscale : For complex relations and no pain schema change deployments, Lumia heavily relies on planetscale, a MySQL DB that just works.
+- Prisma : To utilize its full type safety and automated workflows to ship schema changes and write queries with less work.
+
+
+
+## Future scope
+- Lumia can be utilized efficiently if every university or college have their own cluster and small communities. So Lumia will adapt Docker and have Kubernetes clusters for admins to deploy. 
+- Adding verification process and moderation for users.
+- Option to mark as "Best Answer"
+- Different widgets : Creating different post types. For example Polls.
+- Support images and emojis in questions and answers
+- Adding translate options (like in youtube comments) and dark mode.
+- Adding PWA support
+- <a href="https://blog.meteor.com/optimistic-ui-with-meteor-67b5a78c3fcf">Optimistic UI</a>
+
+
+## Demo video
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+https://youtu.be/9vgBisFuGQg
+```

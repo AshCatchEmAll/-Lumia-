@@ -1,6 +1,9 @@
 export default async function handler(req, res) {
   console.log(req.query);
-
+  if (req.method == "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "POST");
+    return res.status(200).json({});
+  }
   if (req.method === "POST") {
     //search question by content
     const question = await searchQuestion(req.body);

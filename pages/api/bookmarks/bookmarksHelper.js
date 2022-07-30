@@ -1,6 +1,6 @@
 export const answerBookmark = "answerBookmark";
 export const questionBookmark = "questionBookmark";
-
+import { prisma } from "../../../prisma/db_init";
 export async function getUserBookmarks(userId) {
   try {
     

@@ -10,8 +10,7 @@ import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { loadSelectedQuestion } from "../../redux/slices/questionSlice";
 import { loadDynamicQuestionsActionString } from "../../redux/slices/dynamicQuestionReducer";
-import { useSession, signIn, signOut } from "next-auth/react";
-import ProtectedComponent from "../../components/auth/ProtectedComponent";
+
 import {
   getCurrentUserUID,
   verifyToken,

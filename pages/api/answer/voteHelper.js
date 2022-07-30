@@ -3,6 +3,7 @@ import { NotificationType, VoteType } from "@prisma/client";
 import { increaseUserUnreadNotification } from "../account/user";
 
 export async function handleAnswerVote(body) {
+  
   const answerVote = await findAnswerVote(body);
   if (answerVote) {
     body["answerVoteId"] = answerVote.id;
